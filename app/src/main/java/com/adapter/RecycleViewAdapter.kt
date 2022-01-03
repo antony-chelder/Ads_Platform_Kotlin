@@ -21,10 +21,10 @@ import kotlin.collections.ArrayList
 class RecycleViewAdapter(val act: MainActivity) :
     RecyclerView.Adapter<RecycleViewAdapter.AdViewHolder>() {
     val adArrayList = ArrayList<AdPost>()
-    var timeFormatter : SimpleDateFormat? = null // Инстанция Time Formatter
+    var timeFormatter : SimpleDateFormat? = null 
 
     init{
-        timeFormatter = SimpleDateFormat("dd/MM/yyyy - hh:mm", Locale.getDefault()) // Инициализация, указываем в каком формате будет отображатся время
+        timeFormatter = SimpleDateFormat("dd/MM/yyyy - hh:mm", Locale.getDefault()) 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdViewHolder {
@@ -44,7 +44,7 @@ class RecycleViewAdapter(val act: MainActivity) :
 
     fun updateAdapter(newListItem: List<AdPost>) {
 //        val tempAdsList = ArrayList<AdPost>()
-//        tempAdsList.addAll(adArrayList) // Создаем временный список, куда помещаем и старый и новый список, чтобы старый список добавлялся к новому
+//        tempAdsList.addAll(adArrayList) 
 //        tempAdsList.addAll(newListItem)
         val diffresult = DiffUtil.calculateDiff(DiffUtilHelper(adArrayList,newListItem))
         diffresult.dispatchUpdatesTo(this)
@@ -53,7 +53,7 @@ class RecycleViewAdapter(val act: MainActivity) :
     }
 
 
-    fun updateWithClearAdapter(newListItem: List<AdPost>) { // Функция, чтобы при нажатии на кнопку home, снова возращалось на первые обьявления
+    fun updateWithClearAdapter(newListItem: List<AdPost>) { 
         val diffresult = DiffUtil.calculateDiff(DiffUtilHelper(adArrayList,newListItem))
         diffresult.dispatchUpdatesTo(this)
         adArrayList.clear()
@@ -80,25 +80,25 @@ class RecycleViewAdapter(val act: MainActivity) :
 
         }
 
-        private fun timeConverter(timeMillis : String) : String { // Функция чтобы перевести время с милисекунд в нужное значение
-          val calendar = Calendar.getInstance() // Создали инстанцию календаря, который превращает все в нужный формат, розкладывает по полочкам
+        private fun timeConverter(timeMillis : String) : String { 
+          val calendar = Calendar.getInstance() 
             calendar.timeInMillis = timeMillis.toLong()
 
-            return formatter.format(calendar.time) // Возвращаем готовый формат времени с помощью класса Calendar
+            return formatter.format(calendar.time) 
 
         }
 
         private fun allclickListeners(ad:AdPost) = with(binding){
             itemView.setOnClickListener {
-                act.AddView(ad) // Берем через activity интерфейс, так как только там есть доступ к ViewModel
-                val i = Intent(binding.root.context, DescActivity::class.java).apply { // Чтобы добратся до контекста activity с адаптер, добираемся до него с помощью binding.root
-                    putExtra(AD_KEY,ad) // Передаем все обьявление
+                act.AddView(ad) 
+                val i = Intent(binding.root.context, DescActivity::class.java).apply {
+                    putExtra(AD_KEY,ad) 
                 }
                 binding.root.context.startActivity(i)
             }
 
             likeButton.setOnClickListener {
-                if(act.mAuth.currentUser?.isAnonymous == false) act.FavClick(ad) // Если вошли как анонимный пользователь, то нельзя нажать на кнопку
+                if(act.mAuth.currentUser?.isAnonymous == false) act.FavClick(ad) 
 
             }
 
@@ -112,7 +112,7 @@ class RecycleViewAdapter(val act: MainActivity) :
         }
 
         private fun checkIsFavOrNot(ad: AdPost) = with(binding){
-            if(ad.isFav){ // Проверка, если у нас выбранно в избанное или нет, то тогда показываются нужные картинки
+            if(ad.isFav){ 
                 likeButton.setImageResource(R.drawable.pressed_fav_image)
             }else{
                 likeButton.setImageResource(R.drawable.no_pressed_fav_image)
