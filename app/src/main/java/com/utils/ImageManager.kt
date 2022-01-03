@@ -13,24 +13,24 @@ import kotlinx.coroutines.*
 object ImageManager {
     const val MAX_IMAGE_SIZE = 1000
     fun getImageSize(uri: Uri, act : Activity): List<Int> {
-        val inStream = act.contentResolver.openInputStream(uri)  // Получаем inputStream из contentResolver, открываем поток и передаем ссылку которая приходит из Pix, чтобы добратся до файла
+        val inStream = act.contentResolver.openInputStream(uri)  
 
 
-//        val fTemp = File(act.cacheDir,"temp.tmp") // Создаем временный файл, и то где он сохранится, также название
+//        val fTemp = File(act.cacheDir,"temp.tmp")
 //        if (inStream != null) {
-//            fTemp.copyInputStreamtoFile(inStream) // Копируем в наш File готовый поток, с помощью функции extensions
+//            fTemp.copyInputStreamtoFile(inStream) 
 //        }
 
 
         val options = BitmapFactory.Options().apply {
             inJustDecodeBounds = true
         }
-//        BitmapFactory.decodeFile(fTemp.path, options) // Передали путь
+//        BitmapFactory.decodeFile(fTemp.path, options) 
 
-        BitmapFactory.decodeStream(inStream,null, options) // Передали поток напрямую
+        BitmapFactory.decodeStream(inStream,null, options) 
 
 
-//        return if (ImageRotatiton(fTemp) == 90) // Уже напрямую передается файл
+//        return if (ImageRotatiton(fTemp) == 90) 
 //            listOf(options.outHeight, options.outWidth)
 //        else listOf(options.outWidth, options.outHeight)
 
@@ -48,9 +48,9 @@ object ImageManager {
 
     }
 
-//   private fun File.copyInputStreamtoFile(inputStream: InputStream){ // Получаем inputStream из ссылки не напрямую с файла,а через посредника
+//   private fun File.copyInputStreamtoFile(inputStream: InputStream){ 
 //       this.outputStream().use {
-//           out-> inputStream.copyTo(out) // В файл копируется поток
+//           out-> inputStream.copyTo(out) 
 //       }
 //   }
 //
@@ -106,29 +106,29 @@ object ImageManager {
     }
 
 
-   private suspend fun getBitmapFromUri(uris: List<String?>) : List<Bitmap> = withContext(Dispatchers.IO) { // Функция для получения bitmap картинок для отображение в viewpager, запуск функции на второстеменно потоке
-        val bitmapList = ArrayList<Bitmap>() // Временнный список
+   private suspend fun getBitmapFromUri(uris: List<String?>) : List<Bitmap> = withContext(Dispatchers.IO) { 
+        val bitmapList = ArrayList<Bitmap>() 
 
-        for (n in uris.indices){ // Берем по очереди из массива ссылки
+        for (n in uris.indices){ 
             kotlin.runCatching {
-                bitmapList.add(Picasso.get().load(uris[n]).get()) // берем bitmap
+                bitmapList.add(Picasso.get().load(uris[n]).get()) 
             }
         }
 
         return@withContext bitmapList
 
     }
-      fun FillImageArray(adPost : AdPost, adapter : ImageAdapter) { // Функция для заполнения массива с ссылками
-        val listUris = listOf( // Создание списка со всеми ссылками на картинки
+      fun FillImageArray(adPost : AdPost, adapter : ImageAdapter) { 
+        val listUris = listOf( 
             adPost.mainImage,
             adPost.image2,
             adPost.image3,
             adPost.image4
         )
-        CoroutineScope(Dispatchers.Main).launch { // Запуск курутины на основном потоке,где будет обновлятся адаптер после того как выполнится функция для получения bitmap на второстепенном потоке
+        CoroutineScope(Dispatchers.Main).launch { 
             val bitmapList =
-                getBitmapFromUri(listUris) // Когда запустится курутина, это запуститься первое, пока не достанет все битмапы
-            adapter.updateAdapter(bitmapList as ArrayList<Bitmap>) // Обновляем адаптер с загруженными битмапами
+                getBitmapFromUri(listUris) 
+            adapter.updateAdapter(bitmapList as ArrayList<Bitmap>) 
 
         }
 
