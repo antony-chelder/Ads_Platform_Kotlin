@@ -48,9 +48,9 @@ class FilterActivity : AppCompatActivity() {
     private fun onClickDone() = with(binding){
         bDone.setOnClickListener {
             val i = Intent().apply {
-                putExtra(FILTER_KEY,createFilter()) // Отправка данных с фильтра на MainActivity
+                putExtra(FILTER_KEY,createFilter()) 
             }
-            setResult(RESULT_OK,i) // Возвращение результата
+            setResult(RESULT_OK,i) 
             finish()
 
         }
@@ -58,13 +58,13 @@ class FilterActivity : AppCompatActivity() {
     }
 
 
-    private fun onClickClear() = with(binding){ // Функция для очистки фильтра
+    private fun onClickClear() = with(binding){ 
         bClear.setOnClickListener {
            selectCountry.text = getString(R.string.selectcountry)
            selectCity.text = getString(R.string.selectсity)
             edIndex.setText("")
             checkSend.isChecked = false
-            setResult(RESULT_CANCELED) // Как только очищается фильтр, тогда и примененные данные для фильтра также очищаются, передаем этот код на MainActivity
+            setResult(RESULT_CANCELED) 
         }
 
     }
@@ -72,27 +72,27 @@ class FilterActivity : AppCompatActivity() {
     private fun getFilterResult() = with(binding){
         val filter = intent.getStringExtra(FILTER_KEY)
         if(filter != null && filter != "empty"){
-          val filterArray = filter.split("_") // Будут выдаватся элементы по нижнему подчеркиванию, которые пришли с activity
-            if(filterArray[0] != "empty") selectCountry.text = filterArray[0] // Заполнение данными которые уже были применены в фильтре если они есть
+          val filterArray = filter.split("_") 
+            if(filterArray[0] != "empty") selectCountry.text = filterArray[0]
             if(filterArray[1] != "empty") selectCity.text = filterArray[1]
             if(filterArray[2] != "empty") edIndex.setText(filterArray[2])
             checkSend.isChecked = filterArray[3].toBoolean()
         }
     }
 
-    private  fun createFilter(): String = with(binding){ // Функция будет возвращать сформированный стринг для фильтрации
-        val sBilder = StringBuilder() // Создание builder для формирование одной строки всех данных
+    private  fun createFilter(): String = with(binding){ 
+        val sBilder = StringBuilder() 
         val arrayTempFilter = listOf(selectCountry.text,
          selectCity.text,
          edIndex.text,
-         checkSend.isChecked.toString()) // Формирование массива со всеми указанными данными
+         checkSend.isChecked.toString()) 
 
-        for ((index,dataFilterS) in arrayTempFilter.withIndex()){ // Цикл прогоняет все данные в списке, где будут проходить необходимые проверки
-              if(dataFilterS != getString(R.string.selectcountry) && dataFilterS != getString(R.string.selectсity) && dataFilterS.isNotEmpty() ) { // Проверка, чтобы страна, город были выбраны, также индекс не пуст, иначе не добавлять в сформированный стринг
-                sBilder.append(dataFilterS) // После проверки на условия, добавляются данные в билдер
-                 if(index != arrayTempFilter.size - 1) sBilder.append("_") // Если это не последний элемент, то добавляется подчеркивание между данными
+        for ((index,dataFilterS) in arrayTempFilter.withIndex()){ 
+              if(dataFilterS != getString(R.string.selectcountry) && dataFilterS != getString(R.string.selectсity) && dataFilterS.isNotEmpty() ) { 
+                sBilder.append(dataFilterS)
+                 if(index != arrayTempFilter.size - 1) sBilder.append("_") 
               } else {
-                  sBilder.append("empty") // Если пустые элементы, то передаем слово empty, чтобы легче потом передавать
+                  sBilder.append("empty") 
                   if(index != arrayTempFilter.size - 1) sBilder.append("_")
               }
 
@@ -120,7 +120,7 @@ class FilterActivity : AppCompatActivity() {
 
     }
 
-    private fun HomeActionBarSettings(){ // Активация кнопки назад
+    private fun HomeActionBarSettings(){ 
         val ab = supportActionBar
         ab?.setDisplayHomeAsUpEnabled(true)
     }
