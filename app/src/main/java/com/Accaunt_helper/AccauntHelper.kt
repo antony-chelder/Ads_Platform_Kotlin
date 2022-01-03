@@ -19,7 +19,7 @@ class AccauntHelper(act: MainActivity) {
     fun SignUpWithEmail(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             act.mAuth.currentUser?.delete()
-                ?.addOnCompleteListener { // Удаляем анонимного пользователя до того как регистрируемся
+                ?.addOnCompleteListener { 
                         task ->
                     if (task.isSuccessful) {
                         act.mAuth.createUserWithEmailAndPassword(email, password)
@@ -45,7 +45,7 @@ class AccauntHelper(act: MainActivity) {
 
     }
 
-    private fun SignUpWithEmailSuccess(user: FirebaseUser) { // Функция для успешного входа, чтобы разгрузить основную функцию
+    private fun SignUpWithEmailSuccess(user: FirebaseUser) { 
         SendEmailVerify(user)
         act.uiUpdate(user)
     }
@@ -54,7 +54,7 @@ class AccauntHelper(act: MainActivity) {
         e: Exception,
         email: String,
         password: String
-    ) { // Функция отслеживает ошибки при регистрации, чтобы разгрузить основную функцию
+    ) { 
         if (e is FirebaseAuthUserCollisionException) {
             val exception = e as FirebaseAuthUserCollisionException
             if (exception.errorCode == FirebaseAuthConstans.ERROR_EMAIL_ALREADY_IN_USE) {
@@ -207,7 +207,7 @@ class AccauntHelper(act: MainActivity) {
     fun signInFirebaseWithGoogle(token: String) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         act.mAuth.currentUser?.delete()
-            ?.addOnCompleteListener { task ->  // Удаляем анонимного пользователя, когда уже входим в аккаунт
+            ?.addOnCompleteListener { task ->  
                 if (task.isSuccessful) {
                     act.mAuth.signInWithCredential(credential).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -237,9 +237,9 @@ class AccauntHelper(act: MainActivity) {
 
     }
 
-    fun signInAnonimus(listener: AccountListener) { // Регистрация анонимного пользователя, передаем наш listener
+    fun signInAnonimus(listener: AccountListener) { 
         act.mAuth.signInAnonymously()
-            .addOnCompleteListener { // Происходит регистрация, также добавляется слушатель для успешности проверки
+            .addOnCompleteListener { 
                     task ->
                 if (task.isSuccessful) {
                     listener.onComplete()
@@ -251,7 +251,7 @@ class AccauntHelper(act: MainActivity) {
 
     }
 
-    interface AccountListener { // Интерфейс который будет следить за тем когда регистрация как анонимный пользователь будет завершена
+    interface AccountListener { 
         fun onComplete()
     }
 
