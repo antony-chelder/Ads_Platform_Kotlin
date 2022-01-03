@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "167050982941",
+    "firebase_url": "https://wellboardkotlin-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "wellboardkotlin",
+    "storage_bucket": "wellboardkotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167050982941:android:a821b2d70c3d07d34078f4",
+        "android_client_info": {
+          "package_name": "com.tony_fire.descorderkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167050982941-o32i1qv80l1667idk3uc92sc44j7g5nh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tony_fire.descorderkotlin",
+            "certificate_hash": "f2eb1b1848c51633632090b9a143a064125ee3b4"
+          }
+        },
+        {
+          "client_id": "167050982941-r4jq7b5jk2r6fr8bf07arfhqsag4bibj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVObGUoKG7VsP0moCb4cPmx0xzG8uGpYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167050982941-r4jq7b5jk2r6fr8bf07arfhqsag4bibj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

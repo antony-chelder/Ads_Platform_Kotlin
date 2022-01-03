@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+    <item android:title="@string/ads" android:id="@+id/ads_title">
+        <menu>
+            <item android:title="@string/my_ads"
+                android:id="@+id/my_ads"/>
+            <item android:title="@string/fav_ads"
+                android:id="@+id/fav_ads"/>
+
+
+        </menu>
+
+    </item>
+    <item android:title="@string/category" android:id="@+id/category_title">
+    <menu>
+        <item android:title="@string/cars_ads"
+            android:id="@+id/cars_ads"/>
+        <item android:title="@string/pc_ads"
+            android:id="@+id/pc_ads"/>
+        <item android:title="@string/smart_ads"
+            android:id="@+id/smart_ads"/>
+        <item android:title="@string/bt_ads"
+            android:id="@+id/bt_ads"/>
+        <item android:title="@string/flat_ads"
+            android:id="@+id/flat_ads"/>
+        <item android:title="@string/clothes_ads"
+            android:id="@+id/clothes_ads"/>
+        <item android:title="@string/handmade_ads"
+            android:id="@+id/handmade_ads"/>
+        <item android:title="@string/other_ads"
+            android:id="@+id/other_ads"/>
+
+
+
+    </menu>
+    </item>
+
+    <item android:title="@string/accaunt_ads" android:id="@+id/acc_title">
+        <menu>
+            <item android:title="@string/sign_up"
+                android:id="@+id/sign_up"/>
+            <item android:title="@string/sign_in"
+                android:id="@+id/sign_in"/>
+            <item android:title="@string/sign_out"
+                android:id="@+id/sign_out"/>
+
+        </menu>
+
+
+
+
+    </item>
+
+</menu>

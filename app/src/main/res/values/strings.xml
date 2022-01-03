@@ -1,0 +1,68 @@
+<resources>
+    !--- Menu Ads--!
+    <string name="app_name">DescOrderKotlin</string>
+    <string name="ad_id">/6499/example/banner</string>
+    <string name="inter_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="ads">Обьявления</string>
+    <string name="my_ads">Мои обьявления</string>
+    <string name="fav_ads">Избранное</string>
+    <string name="cars_ads">Машины</string>
+    <string name="pc_ads">Компьютеры</string>
+    <string name="smart_ads">Смартфоны</string>
+    <string name="flat_ads">Недвижимость</string>
+    <string name="clothes_ads">Одежда</string>
+    <string name="handmade_ads">Ручные изделия</string>
+    <string name="category">Категории</string>
+    <string name="open_toggle">Открыть</string>
+    <string name="close_toggle">Закрыть</string>
+    <string name="other_ads">Разное</string>
+    <string name="bt_ads">Бытовая техника</string>
+    <string name="_ads">Бытовая техника</string>
+    !-- Menu Account--!
+    <string name="sign_in">Вход</string>
+    <string name="accaunt_ads">Аккаунт</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="sign_out">Выход</string>
+    <string name="error1">Не удалось зарегистрироватся</string>
+    <string name="error2">Не удалось войти</string>
+    <string name="sucess_login">Вы успешно вошли в аккаунт</string>
+    <string name="link_done">Аккаунты успешно соеденены</string>
+    <string name="same_accaunt">У Вас уже существует аккаунт с указаной электронной почтой.</string>
+    <string name="email_veify">Ссылка с подтверждением отправлена! Проверьте Вашу почту и подтвердите аккаунт</string>
+    <string name="email_veify_error">Произошла ошибка! Попробуйте снова</string>
+    <string name="not_reg">Войдите или зарегистрируйтесь</string>
+    <string name="open">Открыть</string>
+    <string name="close">Закрыть</string>
+    <string name="dialog_message">Для воостановления пароля введите Ваш Email адрес</string>
+    !-- Sign Layout--!
+    <string name="sign_email">Почта</string>
+    <string name="sign_pass">Пароль</string>
+    <string name="sign_up_text">Регистрация</string>
+    <string name="sign_up_text1">Зарегистрироватся</string>
+    <string name="sign_in_text">Вход</string>
+    <string name="sign_in_text1">Войти</string>
+    <string name="sign_forget_text">Забыли пароль?</string>
+
+    !-- EditActivity--!
+    <string name="selectcountry">*Выберите страну</string>
+    <string name="selectсity">*Выберите город</string>
+    <string name="country">Страна</string>
+    <string name="city">Город</string>
+    <string name="index">Индекс</string>
+    <string name="tel">Телефон</string>
+    <string name="email">Email</string>
+    <string name="select_email">*Укажите Email</string>
+    <string name="select_tel">*Укажите телефон</string>
+    <string name="select_index">Укажите индекс</string>
+    <string name="category_1">Категория</string>
+    <string name="category_select">*Выберите категорию</string>
+    <string name="price">Цена</string>
+    <string name="describe">Описание</string>
+    <string name="describe_1">*Описание</string>
+    <string name="select_price">*Укажите цену</string>
+    <string name="with_send">С отправкой по почте</string>
+    <string name="title">*Укажите название</string>
+    <string name="save_post">Опубликовать обьявление</string>
+
+
+</resources>
