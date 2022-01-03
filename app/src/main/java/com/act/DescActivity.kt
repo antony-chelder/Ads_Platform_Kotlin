@@ -13,7 +13,7 @@ import com.tony_fire.descorderkotlin.databinding.ActivityDescBinding
 
 class DescActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDescBinding
-    private lateinit var adapter : ImageAdapter // Инстанция адаптера для картинок
+    private lateinit var adapter : ImageAdapter 
     private var adPost : AdPost? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class DescActivity : AppCompatActivity() {
     private fun init(){
         adapter = ImageAdapter()
         binding.apply {
-         viewPager2.adapter = adapter // Подключили адаптер в ViewPager
+         viewPager2.adapter = adapter 
         }
         getIntentFromMain()
         imageChangeCounter()
@@ -41,7 +41,7 @@ class DescActivity : AppCompatActivity() {
 
     }
 
-    private fun FillTextData() = with(binding){ // Заполнение текстовой записи
+    private fun FillTextData() = with(binding){ 
         if(adPost != null) {
             tvTitle.text = adPost!!.title
             tvDesc.text = adPost!!.description
@@ -56,49 +56,49 @@ class DescActivity : AppCompatActivity() {
         }
     }
 
-    private fun CallTel(){ // Функция для звонка
-        val callUri = "tel:${adPost?.tel}" // Создается ури для отправки в приложение звонка на телефоне
-        val i = Intent(Intent.ACTION_DIAL) // Intent для открытия приложения для звонков
-        i.data = callUri.toUri() // Передача данных
+    private fun CallTel(){ 
+        val callUri = "tel:${adPost?.tel}" 
+        val i = Intent(Intent.ACTION_DIAL) 
+        i.data = callUri.toUri()
         startActivity(i)
 
     }
 
     private fun SendEmail(){
-        val i = Intent(Intent.ACTION_SEND) // Отправка в манифест информации о том что мы будет открывать приложение для почты
-        i.type = "message/rfc822" // Тип для сообщения
-        i.apply { // Передаем в какие поля в сообщении будут заполнены
+        val i = Intent(Intent.ACTION_SEND) 
+        i.type = "message/rfc822" 
+        i.apply { 
             putExtra(Intent.EXTRA_EMAIL, arrayOf(adPost?.email))
             putExtra(Intent.EXTRA_SUBJECT, "Обьявление")
             putExtra(Intent.EXTRA_SUBJECT, "Меня интересует Ваше обьявление!")
         }
         try { // Запуск блока на случай, если нету установленного приложения для открытия почти
-          startActivity(Intent.createChooser(i,"Open With")) // Создание chooser чтобы выбралось приложение для открытия email
+          startActivity(Intent.createChooser(i,"Open With")) 
 
         }catch (e: ActivityNotFoundException){
 
         }
     }
 
-    private fun IsWithSend(withsend: Boolean) : String{ // Функция чтобы выводить текст в случае true или false
+    private fun IsWithSend(withsend: Boolean) : String{ 
         return if(withsend) "Yes" else "No"
     }
 
-    private fun getIntentFromMain(){ // Получаем данные с MainAct так как там загружаются обьвления и при нажатии передается весь класс AdPost
+    private fun getIntentFromMain(){ 
 
-        adPost = intent.getSerializableExtra(AD_KEY) as AdPost // Получили весь класс с помощью Serializable
-        ImageManager.FillImageArray(adPost!!,adapter) // Достаем ссылки для картинок,заполняем их, также обновляем адаптер
+        adPost = intent.getSerializableExtra(AD_KEY) as AdPost 
+        ImageManager.FillImageArray(adPost!!,adapter) 
         FillTextData()
 
     }
 
 
-    private fun imageChangeCounter(){ // Счетчик картинок, при перелистовании
-        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){ // Создан колбэк которые прослушивает перелистование в ViewPager
-            override fun onPageSelected(position: Int) { // Показыввает позицию где мы остановились в перелистовании
+    private fun imageChangeCounter(){ 
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){ 
+            override fun onPageSelected(position: Int) { 
                 super.onPageSelected(position)
-                val imagecounter = "${position + 1}/${binding.viewPager2.adapter?.itemCount}" // Увеличение количества значения на + 1 так как позиция идет с 0, также подсчет количества фото в адаптере
-                binding.imageCounter.text = imagecounter // Передача созданного значение в текст
+                val imagecounter = "${position + 1}/${binding.viewPager2.adapter?.itemCount}" 
+                binding.imageCounter.text = imagecounter 
             }
 
         })
