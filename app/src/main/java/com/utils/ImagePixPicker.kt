@@ -30,21 +30,21 @@ object ImagePixPicker {
         return options
     }
 
-    fun getMultiImages(  // Функция, которая открывает библиотеку Pix и позволяет выбрать несколько картинок
+    fun getMultiImages(  
         edact: EditAdsActivity,
         imagecounter: Int
     ) {
         edact.addPixToActivity(R.id.place_for_images, getOptions(imagecounter)) { result ->
             when (result.status) {
                 PixEventCallback.Status.SUCCESS -> {
-                    getMultiSelectedImages(edact, result.data) // Передаем активити и ссылки с резолвер которые были выбраны, теперь они приходят как ссылки Uri
+                    getMultiSelectedImages(edact, result.data) 
 
                 }
             }
         }
     }
 
-    fun addImages(  // Функция, для добавления картинок при нажатии в тулбаре
+    fun addImages(  
         edact: EditAdsActivity,
         imagecounter: Int
     ) {
@@ -61,7 +61,7 @@ object ImagePixPicker {
         }
     }
 
-    fun getSingleImage(  // Функция, которая открывает библиотеку Pix и позволяет выбрать одну картинку
+    fun getSingleImage(  
         edact: EditAdsActivity
     ) {
         edact.addPixToActivity(R.id.place_for_images, getOptions(1)) { result ->
@@ -75,12 +75,12 @@ object ImagePixPicker {
         }
     }
 
-    private fun openChooseImageFrag(edact: EditAdsActivity){ // Функция для передачи старого фрагмента, вместо того чтобы полностью закрыть список с картинками
-        edact.supportFragmentManager.beginTransaction().replace(R.id.place_for_images,edact.chooseimagwFrag!!).commit() // Показываем фрвгмент
+    private fun openChooseImageFrag(edact: EditAdsActivity){ 
+        edact.supportFragmentManager.beginTransaction().replace(R.id.place_for_images,edact.chooseimagwFrag!!).commit() 
 
     }
 
-    private fun closePixFrag(edact: EditAdsActivity) { // Закрытие фрагмента после выбора фото
+    private fun closePixFrag(edact: EditAdsActivity) { 
         val fList = edact.supportFragmentManager.fragments
         fList.forEach { frag ->
             if (frag.isVisible) {
@@ -92,7 +92,7 @@ object ImagePixPicker {
     fun getMultiSelectedImages(
         edact: EditAdsActivity,
         uris: List<Uri>
-    ) { // Получаем список выбранных Uris картинок с фрагмента Pix
+    ) {
 
         if (uris.size > 1 && edact.chooseimagwFrag == null) {
             edact.OpenChoosedImage(uris as ArrayList<Uri>)
