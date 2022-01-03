@@ -70,7 +70,7 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
         edPrice.setText(ad.price)
         edDesc.setText(ad.description)
 
-        ImageManager.FillImageArray(ad,imageAdapter) // При заполнении данных которые приходят, также передача картинок
+        ImageManager.FillImageArray(ad,imageAdapter) 
 
     }
 
@@ -119,12 +119,12 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
         }
 
     }
-    private fun imageChangeCounter(){ // Счетчик картинок, при перелистовании
-        binding.vpImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){ // Создан колбэк которые прослушивает перелистование в ViewPager
-            override fun onPageSelected(position: Int) { // Показыввает позицию где мы остановились в перелистовании
+    private fun imageChangeCounter(){ 
+        binding.vpImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){ 
+            override fun onPageSelected(position: Int) { 
                 super.onPageSelected(position)
-                val imagecounter = "${position + 1}/${binding.vpImage.adapter?.itemCount}" // Увеличение количества значения на + 1 так как позиция идет с 0, также подсчет количества фото в адаптере
-                binding.imageCounter.text = imagecounter // Передача созданного значение в текст
+                val imagecounter = "${position + 1}/${binding.vpImage.adapter?.itemCount}" 
+                binding.imageCounter.text = imagecounter 
             }
 
         })
@@ -145,7 +145,7 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
         if(iseditstate) {
             ad?.copy(key = ad?.key)?.let { dbManager.publishAd(it, onPublickFinish()) }
         } else {
-            uploadImages() // Сначала после нажатия на кнопку публикация, будут загружатся картинки
+            uploadImages() 
         }
     }
 
@@ -179,7 +179,7 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
 
     fun OpenChoosedImage(newlist: ArrayList<Uri>?) {
         chooseimagwFrag = ImageListFrag(this)
-        if(newlist != null)chooseimagwFrag?.resizeSelectedImages(newlist,true,this) // Проверка, чтобы старый список не перезаписовал новый
+        if(newlist != null)chooseimagwFrag?.resizeSelectedImages(newlist,true,this) 
         binding.scrollViewEdit.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()
         fm.replace(R.id.place_for_images, chooseimagwFrag!!)
@@ -187,53 +187,53 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
 
     }
 
-    private  fun uploadImages(){ // Функция для загрузки всех фото на Firebase Storage
-        if(imageAdapter.mainarraypager.size == imageIndex){ // Условие для подсчета количества картинок которые нам пришли
-            dbManager.publishAd(ad!!, onPublickFinish()) // Происходит публикация, записуется ссылка картинки
+    private  fun uploadImages(){ 
+        if(imageAdapter.mainarraypager.size == imageIndex){ 
+            dbManager.publishAd(ad!!, onPublickFinish()) 
             return
 
         }
-      val byteArray =  prepareImageByteArray(imageAdapter.mainarraypager[imageIndex]) // Берем массив с байтами с адаптера где отображаются добавленные фото
-        uploadImage(byteArray){ // Полная подготовка uri ссылок и после того как загрузились картинки, загружается текстовая часть
+      val byteArray =  prepareImageByteArray(imageAdapter.mainarraypager[imageIndex]) 
+        uploadImage(byteArray){ 
 
-            nextImagesCount(it.result.toString()) // Ссылка на картинку(и) после публикации
+            nextImagesCount(it.result.toString()) 
         }
 
     }
 
-    private fun nextImagesCount(uri: String){ // В этой функции берем со следущей позиции в адаптере и заного запускаем функцию загрузки
-        setUriToAdd(uri) // Перед тем как увеличивать, запуск проверки на количество фото
-        imageIndex++ // Увеличение на 1, берем со следующей позиции с адаптера
+    private fun nextImagesCount(uri: String){ 
+        setUriToAdd(uri) 
+        imageIndex++ 
         uploadImages()
     }
 
-    private fun setUriToAdd(uri : String){ // Проверка на количество загруженных ссылок в адаптере
-        when(imageIndex){ // По индексу проверка
-            0 -> ad = ad?.copy(mainImage = uri) // Если на первой позиции значит загружена 1 фотографию, и копируем это значение в переменную
+    private fun setUriToAdd(uri : String){ 
+        when(imageIndex){ 
+            0 -> ad = ad?.copy(mainImage = uri) 
             1 -> ad = ad?.copy(image2 = uri)
             2 -> ad = ad?.copy(image3 = uri)
             3 -> ad = ad?.copy(image4 = uri)
         }
     }
 
-    private fun prepareImageByteArray(bitmap: Bitmap) : ByteArray{ // Функция для того чтобы по очереди с Bitmap превращать картинки в ByteArray массив
-        val outStream = ByteArrayOutputStream() // Подготовка outputStream
-        bitmap.compress(Bitmap.CompressFormat.JPEG,20,outStream) // Сжимаем в опредленный формат фото, выставляем качество, когда сожмется, превратится в outputStream
-        return outStream.toByteArray() // Превращаем с потока в byteArray , так как Firebase принимает обьекты в байтах
+    private fun prepareImageByteArray(bitmap: Bitmap) : ByteArray{ 
+        val outStream = ByteArrayOutputStream() 
+        bitmap.compress(Bitmap.CompressFormat.JPEG,20,outStream) 
+        return outStream.toByteArray() 
 
 
     }
 
-    private  fun uploadImage(byteArray: ByteArray, listener : OnCompleteListener<Uri>){ // Функция для загрузки каждого фото по очереди, передается listener, чтобы отслеживать когда закончится загрузка, это будет на второстепенном потоке, чтобы не перезагружать основной
+    private  fun uploadImage(byteArray: ByteArray, listener : OnCompleteListener<Uri>){ 
        val imStorageRef = dbManager.storage
            .child(dbManager.auth.uid!!)
-           .child("image_${System.currentTimeMillis()}")  // Формируем ссылку на картинку по пути, где картинка будет добавлятся по времени
+           .child("image_${System.currentTimeMillis()}")  
 
-        val uploadTak = imStorageRef.putBytes(byteArray) // Загрузка фото по созданному пути
-        uploadTak.continueWithTask{ // Сохранение ссылки на картинку, по которой она будет отображатся пользователям
-            task-> imStorageRef.downloadUrl // Скачивание ссылки на картинку которую только что загрузили
+        val uploadTak = imStorageRef.putBytes(byteArray) 
+        uploadTak.continueWithTask{ 
+            task-> imStorageRef.downloadUrl 
 
-        }.addOnCompleteListener(listener) // Когда загрузили, запускаем interface который будет передаватся в функции UploadImages
+        }.addOnCompleteListener(listener) 
     }
 
 
