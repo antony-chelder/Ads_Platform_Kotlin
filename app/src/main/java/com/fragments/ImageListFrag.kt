@@ -65,14 +65,14 @@ class ImageListFrag( private val FragCloseInterface:FragmentCloseInterface): Bas
         adapter.updateAdapter(bitmaplist, false)
     }
 
-    override fun onClose() { // Запускается только когда нажимается стрелка назад
+    override fun onClose() { 
         super.onClose()
         activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFrag)?.commit()
         FragCloseInterface.onFragClose(adapter.mainImageArray)
         job?.cancel()
     }
 
-    override fun onDetach() { // Метод запускается когда фрагмент закрываем или когда один фрагмент заменяем другим
+    override fun onDetach() { 
         super.onDetach()
 
 
