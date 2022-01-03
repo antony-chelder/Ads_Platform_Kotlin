@@ -59,8 +59,8 @@ class FirebaseViewModel : ViewModel() {
         })
     }
 
-    fun loadFavAds(){ // Функция для загрузки избранных обьявлений
-        dbmanager.getmyFavs(object : DbManager.ReadDataCallback{ // Коллбэк возвращает считанные обьявления
+    fun loadFavAds(){ 
+        dbmanager.getmyFavs(object : DbManager.ReadDataCallback{ 
             override fun readData(list: ArrayList<AdPost>) {
                 liveadsdata.value = list
             }
@@ -69,23 +69,23 @@ class FirebaseViewModel : ViewModel() {
 
         }
 
-    fun viewCount(ad: AdPost){ // Функция для добавление просмотров
+    fun viewCount(ad: AdPost){ 
         dbmanager.viewCount(ad)
     }
 
     fun onFavClick(ad: AdPost){
         dbmanager.onFavClick(ad,object : DbManager.FinishworkListener{
             override fun onFinish() {
-                val updatedlist = liveadsdata.value // Наш обновленные список, берем значение из livedata
-                val pos = updatedlist?.indexOf(ad) // Берем нужную позицию где надо обновить значение
-                if( pos != -1){ // Так как livedata обновляет адаптер если применяются изменения для всего Ad, но если обновление к примеру только для 1 из списка данных, то нужно сделать проверку и перекопировать список
+                val updatedlist = liveadsdata.value 
+                val pos = updatedlist?.indexOf(ad) 
+                if( pos != -1){ 
                     pos?.let{
-                        val favCounter = if(ad.isFav){ // Проверка для счетчика, если он был Fav, тогда прин ажатии будет отниматся -1 и наоборот
+                        val favCounter = if(ad.isFav){ 
                             ad.favcounter.toInt() -1
                         } else{
                             ad.favcounter.toInt() +1
                         }
-                        updatedlist[pos] = updatedlist[pos].copy(isFav = !ad.isFav, favcounter = favCounter.toString()) // Все данные скопируются, выдаем противоположное значение в переменной каждый раз как нажимаем
+                        updatedlist[pos] = updatedlist[pos].copy(isFav = !ad.isFav, favcounter = favCounter.toString()) 
                     }
 
                 }
