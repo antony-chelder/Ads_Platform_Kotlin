@@ -23,7 +23,7 @@ data class AdPost(
         val uid : String? = null,
         val time : String = "0",
 
-        //Используем эти данные, чтобы передавать данные с InfoItem, сюда, тем самым перегружать данные, чтобы это было отдельно, а основные данные заблокированы как безопасность
+        
         var viewsCounter : String = "0",
         var emailCounter : String = "0",
         var callsCounter : String = "0"
