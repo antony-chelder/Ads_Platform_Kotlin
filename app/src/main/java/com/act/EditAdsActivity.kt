@@ -174,7 +174,7 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
                 ad?.image4?:"empty",
                 false,
                 edDesc.text.toString(),
-                ad?.key?: dbManager.db.push().key, // Проверка, если ключ не равняется null значит не нужно генерировать ключ
+                ad?.key?: dbManager.db.push().key,
                 "0",edTitle.text.toString(),
                 dbManager.auth.uid,
                 ad?.time?:System.currentTimeMillis().toString())
