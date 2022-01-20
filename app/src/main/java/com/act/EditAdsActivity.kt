@@ -159,15 +159,28 @@ class EditAdsActivity : AppCompatActivity(), FragmentCloseInterface {
 
     }
 
-    private fun FillAdPost() : AdPost{
-        val ad : AdPost
+     private fun FillAdPost() : AdPost{
+        val adTemp : AdPost
         binding.apply {
-            ad = AdPost(selectCountry.text.toString(),selectCity.text.toString(),edTel.text.toString(),
-                edIndex.text.toString(),  edEmail.text.toString(),checkSend.isChecked.toString(),
-                selectCategory.text.toString(),edPrice.text.toString(),"","","","",false,edDesc.text.toString(),dbManager.db.push().key,"0",edTitle.text.toString(),dbManager.auth.uid,System.currentTimeMillis().toString())
+            adTemp = AdPost(selectCountry.text.toString(),
+                selectCity.text.toString(),edTel.text.toString(),
+                edIndex.text.toString(),  edEmail.text.toString(),
+                checkSend.isChecked.toString(),
+                selectCategory.text.toString(),
+                edPrice.text.toString(),
+                ad?.mainImage?:"empty",
+                ad?.image2?:"empty",
+                ad?.image3?:"empty",
+                ad?.image4?:"empty",
+                false,
+                edDesc.text.toString(),
+                ad?.key?: dbManager.db.push().key, // Проверка, если ключ не равняется null значит не нужно генерировать ключ
+                "0",edTitle.text.toString(),
+                dbManager.auth.uid,
+                ad?.time?:System.currentTimeMillis().toString())
 
         }
-        return ad
+        return adTemp
     }
 
     override fun onFragClose(list: ArrayList<Bitmap>) {
